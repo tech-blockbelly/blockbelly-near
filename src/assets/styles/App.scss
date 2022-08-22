@@ -5,7 +5,7 @@
 
 	.page-container {
 		display: flex;
-		// flex-direction: column;
+		flex-direction: column;
 		flex: 1;
 	}
 	.component-container, .content-container, .module-container, .reset-password-container, .authentication-container {
@@ -47,6 +47,10 @@
         .accent-text {
             color: $purple;
             font-weight: bold;
+        }
+        .module-header {
+            display: flex;
+            justify-content: space-between;
         }
     }
 

@@ -114,6 +114,22 @@ select:focus {
         box-shadow: 0 20px 25px -15px $boxshadowgray;
     }
 }
+
+.purple-btn {
+    background-color: $purple;
+    padding: 1em;
+    margin: 0.5em 0;
+    border-radius: 10px;
+    &:hover {
+        background-color: $purple;
+        opacity: 0.9;
+    }
+    span {
+        margin-left: 10px;
+    }
+}
+
+
 .form-label {
     display: block;
     font-size: 16px;
@@ -190,6 +206,22 @@ select:focus {
             opacity: 0.9;
         }
     }
+}
+
+
+.status-modal {
+    .modal-footer {
+        justify-content: center !important;
+        .btn {
+            background-color: $purple;
+            color: white;
+            border-radius: 10px;
+            &:hover {
+                opacity: 0.9;
+            }
+        }
+    }
+    
 }
 
 @media #{$mobile} {

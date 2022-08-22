@@ -1,11 +1,30 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useLocation, useHistory, useParams } from 'react-router-dom';
 import { Col, Container, Row, Spinner, Image, ListGroup, Form, ListGroupItem } from 'react-bootstrap';
-import { IoChevronBack, IoBagCheck, IoLogOutOutline, IoWallet } from 'react-icons/io5';
+import { IoChevronBack, IoBagCheck, IoLogOut, IoWallet, IoFlameSharp, IoHammerSharp } from 'react-icons/io5';
 import DistributionTable from './DistributionTable';
 import axios from 'axios';
-import { initContract, fetchMetadata,fetchMinInvestment } from '../../abi/near/utils';
-import TransactionPage from '../transaction/TransactionPage';
+
+import { 
+    initContract, 
+    login,
+    logout,
+    fetchMetadata, 
+    fetchMinInvestment, 
+    fetchTotalSupply,
+    fetchTokenAllocation,
+    fetchAccountBalance,
+    buyToken,
+    callBof,
+    updateBaseprice,
+    burnToken,
+    initRefContract,
+    callftTransfer,
+    fetchRefConMetadata
+} from '../../abi/near/utils';
+
+import SuccessModal from '../common/SuccessModal';
+import ErrorModal from '../common/ErrorModal';
 
 import makerLogo from '../../assets/images/indexLogos/AlphaGen.png';
 import nearLogo from '../../assets/images/near-protocol.svg';
@@ -24,24 +43,42 @@ const capitalizeFirstLetter = (word) => {
 }
 
 const PortfolioPage = (props) => {
+    const [appState, setAppState] = useState({
+        loading: true,
+        fund: {},
+        account: '',
+        balance: 0,
+        showMessage: false
+    });
+
+    const flow = () => {
+        if (window.walletConnection.isSignedIn()){
+            console.log("Signed In", appState.account);
+            if (!appState.account) {
+                setAppState({ ...appState, account: window.walletConnection.getAccountId() });
+                setUpdateBalance(true)
+            }
+        }
+    }
+
+    window.nearInitPromise = initContract()
+                                .then(flow)
+                                .then(initRefContract)
+                                .catch(console.error)
+
     let { i } = useQuery();
     let { chn, id } = useParams();
     const history = useHistory();
     const [hasPdf, setHasPdf] = useState(false);
 
-    const [appState, setAppState] = useState({
-        loading: true,
-        // loading: false,
-        fund: {},
-    });
-    
-    const [modalShow, setModalShow] = useState(false);
-    const handleShow = () => {
-        setModalShow(true);
-        showMetadata();
-        showMinInvestment();
-    };
+    //Transaction messages
+    const [showSuccess, setShowSuccess] = useState(false);
+    const [showError, setShowError] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [ updateBalance, setUpdateBalance ] = useState(false);
 
+    //fetches Index information
     useEffect(() => {
         setAppState({ ...appState, loading: true });
         axios
@@ -53,41 +90,33 @@ const PortfolioPage = (props) => {
             })
             .catch((err) => console.log(err));
     }, [id]);
-    // }, [id, i, props]);
+
+    // useEffect(() => {
+    //     if (appState.account && !appState.balance) {
+    //         console.log('Account set, balance not set');
+    //         showAccountBalance()
+    //     }
+    // }, [updateBalance]);
 
     /** NEAR Wallet Connection Script */
-    const [account, setAccount] = useState('');
-
-    const flow = () => {
-        if (window.walletConnection.isSignedIn()){
-            console.log("Signed In", account);
-            if (!account) {
-                setAccount(window.walletConnection.getAccountId());
-            }
-            // walletConnection.signOut();
-        }else{
-            console.log("Requesting Sign in");
-            window.walletConnection.requestSignIn({
-                contractId: "dev-1659704680899-56318775491014",
-                methodNames: [], // optional
-                successUrl: "http://localhost:3000/defi/baskets/near/0", // optional redirect URL on success
-                failureUrl: "http://localhost:3000/defi/baskets" // optional redirect URL on failure
-            });
-        }
-    }
-
-    useEffect(() => {
-        console.log(account + " has beeen set");
-        // if (window.walletConnection.isSignedIn()) {
-        //     console.log(fetchMetadata());
-        // }
-    }, [account]);
-
     const connectWallet = () => {
+        setAppState({ ...appState, loading: true });
+        if (!window.walletConnection.isSignedIn()) {
+            login()
+                .then(setAppState({ ...appState, loading: false, account: window.walletConnection.getAccountId(),balance: showAccountBalance() }))
+                // .then(showAccountBalance)
+                .catch(console.error)
+        }
+
         // window.nearInitPromise = 
-        initContract()
-        .then(flow)
-        .catch(console.error)
+        // initContract()
+        // .then(resp => console.log(resp))
+        // .then(flow)
+        // .then(showMetadata)
+        // .then(showMinInvestment)
+        // .then(showTotalSupply)
+        // .then(showTokenAllocation)
+        // .catch(console.error)
     }
 
     const showMetadata = () => {
@@ -99,8 +128,90 @@ const PortfolioPage = (props) => {
         fetchMinInvestment()
         .then((resp) => console.log(resp));
     }
-    /** NEAR Wallet Connection Script */
 
+    const showTotalSupply = () => {
+        fetchTotalSupply()
+        .then((resp) => console.log(resp));
+    }
+
+    const showTokenAllocation = () => {
+        fetchTokenAllocation()
+        .then((resp) => console.log(resp));
+    }
+
+    const runCallBof = () => {
+        callBof()
+        .then((resp) => console.log(resp));
+    }
+
+    
+
+    const showAccountBalance = () => {
+        console.log('showAccountBalance called ');
+        fetchAccountBalance(appState.account)
+        .then((resp) => {
+            let balance = parseInt(resp)
+            let actualBalance = balance/ Math.pow(10, 24)
+            setAppState({ ...appState, loading: false, balance: actualBalance.toFixed(2) })
+            setUpdateBalance(false)
+            console.log(actualBalance.toFixed(2))
+        })
+    }
+
+    const processTransaction = () => {
+        setAppState({ ...appState, loading: true });
+
+        buyToken()
+        .then((resp) => {
+            setAppState({ ...appState, loading: false });
+            console.log(resp);
+            if(resp.includes('error')) {
+                setShowSuccess(false);
+                setShowError(true);
+                setErrorMessage(resp)
+            } else {
+                setShowSuccess(true);
+                setShowError(false);
+                setSuccessMessage('Token has successfully been minted to you account')
+            }
+            setUpdateBalance(true)
+        })
+        .then(showAccountBalance)
+    }
+
+    const processSell = () => {
+        // make another call to another contract
+        //if succesful, proceed with buy_token
+
+        // runCallBof()
+        // callftTransfer()
+        fetchRefConMetadata()
+        .then(resp => console.log(resp))
+        .then(console.log(window.contract.contractId))
+        .then(callftTransfer)
+        .then(tresp => console.log(tresp))
+
+        // setAppState({ ...appState, loading: true });
+        // burnToken()
+        // .then((resp) => {
+        //     setAppState({ ...appState, loading: false });
+        //     console.log(resp);
+        //     if(resp.includes('error')) {
+        //         setShowSuccess(false);
+        //         setShowError(true);
+        //         setErrorMessage(resp)
+        //     } else {
+        //         setShowSuccess(true);
+        //         setShowError(false);
+        //         setSuccessMessage(resp)
+        //     }
+        //     setUpdateBalance(true)
+        // })
+        // .then(showAccountBalance)
+    }
+
+
+    /** NEAR Wallet Connection Script */
 
 
     if(!appState.fund.creatorIcon) {
@@ -112,8 +223,8 @@ const PortfolioPage = (props) => {
         setHasPdf(true);
     }
 
-    let buyBtnText = 'Mint'
-    let buyInputPlaceHolder = "0.000000 " + appState.fund['iSym']
+    let buyBtnText = 'Mint 1 NECO'
+    let buyInputPlaceHolder = "0.00 " + appState.fund['iSym']
 
     return (
         <Container fluid className="module-container portfolio-page-container">
@@ -155,7 +266,7 @@ const PortfolioPage = (props) => {
                                     <p className="subtext">Creator</p>
                                 </div>
                             </Col>
-                            <Col className="market-info-column" xl={4}>
+                            {/* <Col className="market-info-column" xl={4}>
                                 <p className="market-cap">
                                     $
                                     {
@@ -166,14 +277,9 @@ const PortfolioPage = (props) => {
                                     }
                                 </p>
                                 <p className="subtext">Market Cap</p>
-                            </Col>
+                            </Col> */}
                         </Row>
                         <Row className="information-row">
-                            {/* <PortfolioFinancials 
-                                fund={appState.fund}
-                                endpoint={""}
-                                type={"defi"}
-                            /> */}
                             <h4 className="title">Allocations</h4>
                             <DistributionTable
                                 {...props}
@@ -183,7 +289,6 @@ const PortfolioPage = (props) => {
                         <Row className="information-row">
                             <h4 className="title">Overview</h4>
                             <div className="information-text">
-                                {/* {appState.fund['description']['en']} */}
                                 {appState.fund['iDesc']}
                             </div>
                         </Row>
@@ -192,16 +297,11 @@ const PortfolioPage = (props) => {
                             <div className="information-text" dangerouslySetInnerHTML={{__html:appState.fund['iMethodology']}}>
                             </div>
                         </Row>
-                        {/* pdf code fails on non-BB indices. Needs to be rechecked */}
-                        {/* {
-                            hasPdf ? ( */}
-                                <Row className="information-row">
-                                    <div className="information-text">
-                                        Click to view detailed <a href = {necoPdf} target='_blank' className='pdf-link'>factsheet</a>
-                                    </div>
-                                </Row>
-                            {/* ) : {}
-                        } */}
+                        <Row className="information-row">
+                            <div className="information-text">
+                                Click to view detailed <a href = {necoPdf} target='_blank' className='pdf-link'>factsheet</a>
+                            </div>
+                        </Row>
                     </Col>
                     <Col xl={5} className="transaction-column">
                         <div className="fixed-column">
@@ -212,17 +312,19 @@ const PortfolioPage = (props) => {
                                     className="wallet-info-block">
                                     <ListGroupItem>
                                         <p>Account Id:</p>
-                                        <p className="info-value">{account}</p>
+                                        <p className="info-value">{appState.account}</p>
                                     </ListGroupItem>
-                                    <ListGroupItem>
-                                        <p>Account Balance: </p>
-                                        <p className="info-value">0 NECO</p>
-                                    </ListGroupItem>
+                                    {appState.balance ? (
+                                        <ListGroupItem>
+                                            <p>Account Balance: </p>
+                                            <p className="info-value">{appState.balance} NECO</p>
+                                        </ListGroupItem>
+                                    ) : ''}
                                 </ListGroup>
                             </Col>
                         </Row>
                         <Row>
-                            <Col className="portfolio-info-container defi-buy">
+                            {/* <Col className="portfolio-info-container defi-buy">
                                 <ListGroup className="fund-action-list-group">
                                     <ListGroup.Item style={{ border: '0' }}>
                                         <Form.Group controlId="pay-with-input">
@@ -235,9 +337,10 @@ const PortfolioPage = (props) => {
                                             <Form.Control
                                                 className="pay-with-input form-input"
                                                 type="text"
-                                                placeholder="0.000000 USDC"
+                                                placeholder="0.00 USDC"
                                                 name="paymentIndex"
-                                                required
+                                                readOnly
+                                                // required
                                             />
                                         </Form.Group>
                                     </ListGroup.Item>
@@ -259,47 +362,33 @@ const PortfolioPage = (props) => {
                                         </Form.Group>
                                     </ListGroup.Item>
                                 </ListGroup>
-                                {/* <ListGroup
-                                    flush
-                                    className="transaction-breakup-block">
-                                    <ListGroupItem>
-                                        Minimum Receive
-                                        <p>0.00000</p>
-                                    </ListGroupItem>
-                                    <ListGroupItem>
-                                        Network Fee
-                                        <p>0.000 USDC</p>
-                                    </ListGroupItem>
-                                    <ListGroupItem>
-                                        Platform Fee
-                                        <p>0.000 USDC</p>
-                                    </ListGroupItem>
-                                </ListGroup> */}
-                            </Col>
+                            </Col> */}
                         </Row>
                         <ListGroup className="fund-action-list-group">
-                            {/* { window.walletConnection.isSignedIn() ? ( */}
-                            {account ? (
+                        {/* { window.walletConnection.isSignedIn() ? ( */}
+                            {appState.account ? (
                                 <Fragment>
                                     <ListGroup.Item
                                         action
-                                        // onClick={(e) => {
-                                        //     e.preventDefault();
-                                        //     window.location.href = `/invest/${id}`;
-                                        // }}
-                                        onClick={handleShow}
-                                        // onClick={showMetadata}
+                                        onClick={processTransaction}
                                         className="fund-action-container accent"
                                         eventKey="buy">
-                                        <IoBagCheck /> {buyBtnText}
+                                        <IoHammerSharp /> {buyBtnText}
                                     </ListGroup.Item>
-                                    {/** If accoount has balance, then show burn button */}
+                                    {/** If account has balance, then show burn button */}
                                     <ListGroup.Item
                                         action
-                                        onClick={handleShow}
+                                        onClick={processSell}
                                         className="fund-action-container accent"
                                         eventKey="burn">
-                                        <IoBagCheck /> Burn 
+                                        <IoFlameSharp /> Burn 1 NECO
+                                    </ListGroup.Item>
+                                    <ListGroup.Item
+                                        action
+                                        onClick={logout}
+                                        // onClick={processFtTransfer}
+                                        className="fund-action-container accent">
+                                        <IoLogOut /> Logout
                                     </ListGroup.Item>
                                 </Fragment>
                             ) : (
@@ -317,13 +406,23 @@ const PortfolioPage = (props) => {
                 </Row>
             )}
 
-            <TransactionPage
-                show={modalShow}
-                onHide={() => setModalShow(false)}
-                id={id}
-                action="buy"
-                account={account}
-                // type={endpoint}
+            <SuccessModal
+                show={showSuccess}
+                onHide={() => setShowSuccess(false)}
+                action={() => {
+                    setShowSuccess(false);
+                }}
+                actionText="Close"
+                msg={successMessage}
+            />
+            <ErrorModal
+                show={showError}
+                onHide={() => setShowError(false)}
+                msg={errorMessage}
+                action={() => {
+                    setShowError(false);;
+                }}
+                actionText="Close"
             />
         </Container>
     );
@@ -331,9 +430,7 @@ const PortfolioPage = (props) => {
 
 const PortfolioContainer = (props) => {
     return (
-        // <DAppProvider config={config}>
-            <PortfolioPage {...props} />
-        // </DAppProvider>
+        <PortfolioPage {...props} />
     );
 };
 

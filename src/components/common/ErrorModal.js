@@ -10,17 +10,15 @@ const Error = (props) => {
             aria-labelledby="contained-modal-title-vcenter"
             backdrop="static"
             keyboard={false}
+            className="status-modal"
             centered>
             <Modal.Body className="text-center">
                 <div className="no-selection">
-                    <h1 className="text-danger">
-                        <VscError size={70} />
-                    </h1>
-                    <p>{props.msg}</p>
+                    <VscError size={50} className="text-danger" /> <span>{props.msg}</span>
                 </div>
             </Modal.Body>
-            <Modal.Footer className="button-wrapper">
-                <Button className="proceed-btn btn" onClick={props.action}>
+            <Modal.Footer className="button-wrapper text-center">
+                <Button className="proceed-btn btn modal-btn" onClick={props.action}>
                     {props.actionText}
                 </Button>
             </Modal.Footer>

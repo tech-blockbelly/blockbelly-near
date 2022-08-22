@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
-import { Image, Navbar, Nav } from 'react-bootstrap';
+import { Image, Navbar, Nav, Button } from 'react-bootstrap';
 import { NavLink, Redirect } from 'react-router-dom';
-import bbLogo from '../../assets/images/Blockbelly.png';
+import InvexLogo from '../../assets/images/indexLogos/Invex.png';
 import { IoCube, IoLogOut, IoWallet } from 'react-icons/io5';
 import { BsFillGearFill } from 'react-icons/bs';
 import { RiCopperCoinFill, RiAddCircleLine } from 'react-icons/ri';
@@ -66,11 +66,11 @@ const NavigationMenu = () => {
                 className="navbar navbar-light bg-light"
                 expanded={expanded}>
                 <Navbar.Brand href="/" className="brand-wrapper">
-                    {/* <Image src={bbLogo} className="bb-logo"></Image> */}
-                    <div>
-                        <h2 className="bb-title">Blockbelly</h2>
+                    <Image src={InvexLogo} className="app-logo"></Image>
+                    {/* <div>
+                        <h2 className="bb-title">Invex</h2>
                         <p className="beta-disclaimer">Beta version</p>
-                    </div>
+                    </div> */}
                 </Navbar.Brand>
                 <Navbar.Toggle
                     onClick={() => setExpanded(expanded ? false : 'expanded')}
