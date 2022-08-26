@@ -81,8 +81,7 @@ const PortfolioPage = (props) => {
     //fetches Index information
     useEffect(() => {
         setAppState({ ...appState, loading: true });
-        axios
-            .get(" http://localhost:3000/indexrepository.json")
+        fetch("/indexrepository.json")
             .then((res) => {
                 let data = res.data[0]
                 let index = data[capitalizeFirstLetter(chn)][id];
