@@ -1,12 +1,15 @@
 import React from 'react';
-import { Container, Button, Row, Col, Image } from 'react-bootstrap';
+import { Container, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-
 import InvexLogo from '../../assets/images/indexLogos/Invex.png'
 
 const LandingPage = () => {
     return (
-        <Container className="component-container landing-page">
+        <Container
+            className="component-container landing-page"
+            style={{ backgroundImage: "url('/technology.jpg')" }}
+        >
+            <div className='overlay'></div>
             <div className='header-block'>
                 <Image
                     src={InvexLogo}

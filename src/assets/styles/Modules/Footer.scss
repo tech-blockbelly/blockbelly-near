@@ -1,5 +1,5 @@
 .footer-container {
-    // background-color: $bggrey;
+    background-color: $black;
     padding: 20px 50px;
     display: flex;
     justify-content: space-between;
@@ -11,7 +11,7 @@
         line-height: 16px;
         text-align: left;
         margin: 0;
-        color: $darkgrey;
+        color: $white;
     }
     .footer-links {
         display: flex;

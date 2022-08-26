@@ -1,91 +1,59 @@
-.fund-info-container {
-    background: $white;
-    padding: 0px 20px;
-    margin: 8px 0;
-    border-radius: 10px;
-    align-items: center;
-    text-align: left;
-    box-shadow: 0 20px 25px -15px $boxshadowgray;
+.fund-info-card {
+    background: $boxshadowgray;
+    border-radius: 15px;
+    box-shadow:
+        0 0 15px $lightpink,
+        0 0 15px $darkpuple;
+    max-width: 450px;
+    margin: 20px 0;
+    &:hover {
+        transform: scale(1.01);
+        box-shadow:
+            0 0 15px $lightpink,
+            0 0 15px $magenta;
+    }
     .fund-title {
         display: flex;
         font-weight: 600;
         align-items: center;
         text-decoration: none;
-        .fund-link {
-            text-decoration: none;
-            color: $darkgrey;
-        }
+        margin-bottom: 20px;
         .fund-icon {
             width: 64px;
-            border-radius: 20px;
+            height: 64px;
+            border-radius: 50px;
             margin-right: 10px;
+            box-shadow:
+                0 0 5px $lightpink,
+                0 0 5px $darkpuple;
         }
     }
     .fund-description {
         display: flex;
         align-items: center;
         text-decoration: none;
-        .fund-icon {
-            width: 64px;
-            height: 64px;
+        font-weight: normal;
+        font-size: 18px;
+        font-weight: 1.2;
+    }
+    .card-footer {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        border-top: 0.5px solid $grey;
+        .creator-icon {
+            width: 48px;
+            height: 48px;
             border-radius: 20px;
-            margin-right: 1em;
+            margin-right: 10px;
         }
-    }
-    .card {
-        border: 0;
-        vertical-align: middle;
-        background-color: transparent;
-        .card-title {
-            margin-bottom: 0;
-        }
-        .card-header {
-            background-color: transparent;
-            text-align: center;
-            font-weight: bold;
-            border: 0;
-            color: gray;
-        }
-        .card-footer {
-            background-color: transparent;
-        }
-    }
-    .fund-statistics {
-        .card-text {
-            display: none;
+        .creator-name {
+            font-size: 14px;
+            color: $white;
         }
     }
 }
 @media #{$ipadLandscape} {
-    .statistics-card .card-body {
-        padding: 10px 0;
-        .card-text {
-            display: block;
-            font-size: 14px;
-        }
-        .ratings {
-            margin: 0 auto;
-        }
-    }
 }
 @media #{$ipadPortrait, $mobile} {
-    .fund-info-container {
-        padding: 20px;
-        .fund-description .card-body {
-            flex-direction: column;
-        }
-        .card {
-            .card-body {
-                display: flex;
-                align-items: baseline;
-                justify-content: space-between;
-                .card-text {
-                    display: block;
-                }
-            }
-        }
-        .fund-statistics .card-body {
-            padding: 10px;
-        }
-    }
 }

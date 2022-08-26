@@ -1,13 +1,10 @@
 .navigation-menu-container {
 	border-right: solid 1px $bordergrey;
-	// max-width: 240px;
-	// width: 20%;
 	.navbar {
 		justify-content: space-between;
 		align-items: normal;
-		// flex-direction: column;
 		padding-right: 0;
-		// height: 80vh;
+		background-color: $black;
 		.navbar-collapse {
 			margin-top: 25%;
 			.header-container {
@@ -29,13 +26,11 @@
 			text-decoration: none;
 			font-size: 20px;
 			line-height: 20px;
-			// border-radius: 30px;
 			color: darkgrey;
 			display: flex;
 			justify-content: left;
 			align-items: center;
 			&:hover, &.active {
-				// background-color: rgba(12, 20, 62, 0.1);
 				color: black;
 				border-right: solid $purple;
 				&>svg {
@@ -43,9 +38,6 @@
 				}
 			}
 			&>span {
-				// vertical-align: middle;
-				// line-height: normal;
-				// display: inline-block;
 				margin-left: 10px;
 			}
 		}
@@ -65,13 +57,13 @@
 		display: flex;
 		align-items: center;
 		text-decoration: none;
-		// flex-direction: column;
 		color: $darkgrey;
 		margin: 0;
 		.app-logo {
 			width: 70px;
 			height: 70px;
 			border-radius: 50px;
+			box-shadow: 0 0 10px #B779FD, 0 0 10px #511397;
 		}
 		.bb-title {
 			font-weight: 600;

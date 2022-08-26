@@ -63,7 +63,7 @@ const NavigationMenu = () => {
             <Navbar
                 collapseOnSelect
                 expand="lg"
-                className="navbar navbar-light bg-light"
+                className="navbar navbar-light"
                 expanded={expanded}>
                 <Navbar.Brand href="/" className="brand-wrapper">
                     <Image src={InvexLogo} className="app-logo"></Image>
