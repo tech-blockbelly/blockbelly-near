@@ -1,10 +1,9 @@
-import React, { Fragment, useState, useMemo, useEffect } from 'react';
-import { ChainId, DAppProvider } from '@usedapp/core';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Tabs, Tab, Image, Button } from 'react-bootstrap';
 import { IoWallet } from 'react-icons/io5';
 import FundsListing from '../dashboard/newcomponents/FundsListing';
 
-import nearLogo from '../../assets/images/near-protocol.svg';
+// require('@solana/wallet-adapter-react-ui/styles.css');
 
 const NearContainer = (props) => {
     return (
@@ -13,7 +12,7 @@ const NearContainer = (props) => {
 };
 
 const DeFiExchangeContainer = () => {
-    const [key, setKey] = useState('near');
+    // const [key, setKey] = useState('near');
     const [fundsRepo, setFundsRepo] = useState({});
 
     const fetchRepository = () => {
@@ -30,29 +29,23 @@ const DeFiExchangeContainer = () => {
     }
 
     useEffect(() => {
-        fetchRepository()
+        fetchRepository();
     }, []);
 
     return (
         <Container fluid className="module-container">
-            <h2 className="module-title">Explore Indices</h2>
+            <div className="module-header">
+                <h2 className="module-title">Explore NEAR Indices</h2>
+                {/* <Button
+                    action
+                    className="purple-btn"
+                    onClick={() => connectWallet()}>
+                    <IoWallet />{' '}
+                    <span>Connect to NEAR Wallet</span>
+                </Button> */}
+            </div>
             <Container fluid className="funds-tab-container">
-                <Tabs
-                    id="controlled-tab-example"
-                    activeKey={key}
-                    onSelect={(k) => setKey(k)}
-                    className="funds-type-tab">
-                    <Tab 
-                        eventKey="near" 
-                        title={
-                            <span className="tab-title">
-                                <Image className="tab-logo" src={nearLogo}/>
-                                Near
-                            </span>
-                    }>
-                        <NearContainer funds={fundsRepo.Near} />
-                    </Tab>
-                </Tabs>
+                <NearContainer funds={fundsRepo.Near} />
             </Container>
         </Container>
     );

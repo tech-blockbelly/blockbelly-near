@@ -1,6 +1,7 @@
 import { keyStores } from 'near-api-js'
 
 const CONTRACT_NAME = process.env.CONTRACT_NAME ||'dev-1659704680899-56318775491014'
+// const CONTRACT_NAME = process.env.CONTRACT_NAME ||'dev-1660732027225-80822638182175'
 
 function getConfig(env) {
   switch (env) {
