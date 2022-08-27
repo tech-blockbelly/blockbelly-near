@@ -28,6 +28,9 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import BasketListContainer from './components/exchange/BasketListContainer';
 import DeFiExchangeContainer from './components/exchange/DeFiExchangeContainer';
 // import BasketContainer from './components/exchange/BasketContainer';
+import { Buffer } from 'buffer';
+
+global.Buffer = Buffer;
 
 function App() {
     return (

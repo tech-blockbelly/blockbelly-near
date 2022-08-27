@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 // import TransactionBlock from './TransactionBlock';
 import CalculationTable from './CalculationTable';
 import {
@@ -20,8 +20,7 @@ import { Link, NavLink, Redirect } from 'react-router-dom';
 import { buyToken } from '../../abi/near/utils';
 
 const TransactionPage = (props) => {
-    let { id, action, type, account } = props;
-    console.log(account);
+    let { dist, indexDetails, minIn } = props;
 
     const [formData, setFormData] = useState({
         amount: 0,
@@ -40,25 +39,38 @@ const TransactionPage = (props) => {
         fees: {},
     });
 
-    const endpoint = type == 'cefi' ? 'portfolio' : 'indices';
-    const getInvestmentDetails = () => {
-        getAPIClient()
-            .get(`${endpoint}/${id}/invest/?amount=${amount}`)
-            .then((res) => {
-                const investDetails = res.data;
-                setAppState({
-                    loading: false,
-                    investDetails: investDetails || {},
-                    investmentBreakdown: Object.values(investDetails.coins),
-                    coinSymbols: Object.keys(investDetails.coins),
-                    fees: {
-                        platform_fees: investDetails.platform_fees.contrib,
-                        manager_fees: investDetails.manager_fees.contrib,
-                    },
-                });
-                console.log(res.data);
+    useMemo(() => {
+        if (dist) {
+          const platformFee = (0.2 / 100) * amount;
+          const distributorFee = (0.2 / 100) * amount;
+          let swapFee = 0;
+          const actualIn = amount - platformFee - distributorFee;
+          const split = [];
+          for (const d of dist) {
+            const amtInDist = (d.inForMinOut * actualIn) / minIn;
+            const poolFee = d.poolFee * amtInDist;
+            swapFee += poolFee;
+            const minOut = d.outWithOneIn * (amtInDist - poolFee);
+            split.push({
+              tokenIn: d.tokenIn,
+              tokenOut: d.tokenOut,
+              poolFee,
+              minOut,
+              amtInDist,
             });
-    };
+          }
+          setAppState({
+            loading: false,
+            investDetails: {},
+            investmentBreakdown: split,
+            fees: {
+                plaform_fee: platformFee,
+                manager_fee: distributorFee,
+                swap_fee: swapFee
+            }
+          })
+        }
+      }, [dist, amount, minIn]);
 
     const [showSuccess, setShowSuccess] = useState(false);
     const [showError, setShowError] = useState(false);
@@ -66,30 +78,30 @@ const TransactionPage = (props) => {
     const [viewLedger, setViewLedger] = useState(null);
 
     const investInFund = (e) => {
-        getAPIClient()
-            .post(`portfolio/${id}/invest/`, { amount: formData.amount })
-            .then((res) => {
-                const { status, ledger_id } = res.data;
-                console.log('Transaction', status, ledgerId);
-                setLedgerId(ledger_id);
-                setShowSuccess(true);
-                setShowError(false);
-                // // setAppState({
-                // //     loading: false,
-                // //     investDetails: investDetails || {},
-                // //     investmentBreakdown: Object.values(investDetails.coins),
-                // //     fees: {
-                // //         platform_fees: investDetails.platform_fees.contrib,
-                // //         manager_fees: investDetails.manager_fees.contrib,
-                // //     },
-                // // });
-                // console.log(res.data);
-            })
-            .catch((err) => {
-                const { status, ledger_id } = err.response.data;
-                setShowSuccess(false);
-                setShowError(true);
-            });
+        // getAPIClient()
+        //     .post(`portfolio/${id}/invest/`, { amount: formData.amount })
+        //     .then((res) => {
+        //         const { status, ledger_id } = res.data;
+        //         console.log('Transaction', status, ledgerId);
+        //         setLedgerId(ledger_id);
+        //         setShowSuccess(true);
+        //         setShowError(false);
+        //         // // setAppState({
+        //         // //     loading: false,
+        //         // //     investDetails: investDetails || {},
+        //         // //     investmentBreakdown: Object.values(investDetails.coins),
+        //         // //     fees: {
+        //         // //         platform_fees: investDetails.platform_fees.contrib,
+        //         // //         manager_fees: investDetails.manager_fees.contrib,
+        //         // //     },
+        //         // // });
+        //         // console.log(res.data);
+        //     })
+        //     .catch((err) => {
+        //         const { status, ledger_id } = err.response.data;
+        //         setShowSuccess(false);
+        //         setShowError(true);
+        //     });
     };
 
     const processTransaction = () => {
@@ -174,12 +186,12 @@ const TransactionPage = (props) => {
                                             onChange={onChange}
                                             value={amount}
                                         />
-                                        <Button
+                                        {/* <Button
                                             className="view-details-btn"
                                             onClick={getInvestmentDetails}
                                         >
                                             View Details
-                                        </Button>
+                                        </Button> */}
                                     </div>
                                 </div>
                             </Col>
