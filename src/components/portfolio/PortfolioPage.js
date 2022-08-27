@@ -224,7 +224,7 @@ const {
 //             );
 
 //             setBBContract(
-//                 new Contract(wallet.account(), 'dev-1659704680899-56318775491014', {
+//                 new Contract(wallet.account(), 'dev-1661065232448-46728115400748', {
 //                     viewMethods: [
 //                         'ft_metadata',
 //                         'ft_total_supply',
@@ -325,7 +325,7 @@ const {
 //             'get_deposits',
 //             ],
 //         });
-//         wallet.requestSignIn('dev-1659704680899-56318775491014');
+//         wallet.requestSignIn('dev-1661065232448-46728115400748');
 //     };
 
 //     useEffect(() => {
@@ -634,7 +634,7 @@ const PortfolioPage = (props) => {
       );
 
       setBBContract(
-        new Contract(wallet.account(), "dev-1659704680899-56318775491014", {
+        new Contract(wallet.account(), "dev-1661065232448-46728115400748", {
           viewMethods: [
             "ft_metadata",
             "ft_total_supply",
@@ -770,7 +770,7 @@ const PortfolioPage = (props) => {
       contractId: "ref-finance-101.testnet",
       methodNames: ["get_pools", "get_pool_total_shares", "get_deposits"],
     });
-    wallet.requestSignIn('dev-1659704680899-56318775491014');
+    wallet.requestSignIn('dev-1661065232448-46728115400748');
   };
 
   const showAccountBalance = () => {
