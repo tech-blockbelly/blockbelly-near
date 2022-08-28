@@ -20,6 +20,7 @@ import {
     burnToken,
     initRefContract,
     callftTransfer,
+    callftTransferCall,
     fetchRefConMetadata
 } from '../../abi/near/utils';
 
@@ -104,7 +105,7 @@ const PortfolioPage = (props) => {
         if (!window.walletConnection.isSignedIn()) {
             login()
                 .then(setAppState({ ...appState, loading: false, account: window.walletConnection.getAccountId(),balance: showAccountBalance() }))
-                // .then(showAccountBalance)
+                .then('Connect Ended')
                 .catch(console.error)
         }
 
@@ -144,8 +145,6 @@ const PortfolioPage = (props) => {
         .then((resp) => console.log(resp));
     }
 
-    
-
     const showAccountBalance = () => {
         console.log('showAccountBalance called ');
         fetchAccountBalance(appState.account)
@@ -183,13 +182,19 @@ const PortfolioPage = (props) => {
         // make another call to another contract
         //if succesful, proceed with buy_token
 
-        // runCallBof()
+        // fetchRefConMetadata()
+        // .then(resp => console.log(resp))
+        setAppState({ ...appState, loading: true });
+
         // callftTransfer()
-        fetchRefConMetadata()
-        .then(resp => console.log(resp))
-        .then(console.log(window.contract.contractId))
-        .then(callftTransfer)
-        .then(tresp => console.log(tresp))
+        callftTransferCall()
+        .then(resp =>{
+            setAppState({ ...appState, loading: false });
+            console.log(resp);
+        })
+        // .then(console.log("ft_transfer done"))
+        // .then(burnToken)
+        // .then(resp => console.log(resp))
 
         // setAppState({ ...appState, loading: true });
         // burnToken()

@@ -1,0 +1,69 @@
+.hero-banner-container {
+    .hero-banner {
+        .image-col {
+            .hero-image-desktop {
+                width: 100%;
+            }
+            .hero-image-mobile {
+                display: none;
+            }
+        }
+        .content-col {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 50px;
+            .button-wrapper {
+                display: flex;
+                justify-content: space-between;
+                flex-direction: column;
+                .link-btn {
+                    background-color: $purple;
+                    padding: 1em 2em;
+                    border-radius: 10px;
+                    align-items: center;
+                    font-size: 24px;
+                    font-weight: 500;
+                    width: 350px;
+                    margin: 20px;
+                    color: $white;
+                    text-align: center;
+                    text-decoration: none;
+                    &:hover {
+                        opacity: 0.9;
+                    }
+                }
+            }
+        }
+        @media #{$mobile} {
+            .image-col {
+                .hero-image-desktop {
+                    display: none;
+                }
+                .hero-image-mobile {
+                    display: block;
+                    margin: 0 auto;
+                    max-width: 130px;
+                    border-radius: 100px;
+                    margin-bottom: 15px;
+                    border-radius: 50%;
+                    box-shadow:
+                        0 0 15px $lightpink,
+                        0 0 15px $darkpuple;
+                }
+            }
+            .content-col {
+                align-items: center;
+                padding: 50px;
+                .button-wrapper {
+                    margin-top: 30px;
+                    .link-btn {
+                        font-size: 18px;
+                        width: 250px;
+                    }
+                }
+            }
+        }
+    }
+}

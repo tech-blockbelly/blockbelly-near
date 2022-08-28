@@ -209,8 +209,18 @@ select:focus {
 
 
 .status-modal {
+    .modal-body {
+        background-color: $boxshadowgray;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
     .modal-footer {
         justify-content: center !important;
+        background-color: $boxshadowgray;
+
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+
         .btn {
             background-color: $purple;
             color: white;

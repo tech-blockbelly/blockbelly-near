@@ -19,13 +19,12 @@ const BasketForm = (props) => {
     };
 
     let coins = props.coins;
-    let content = props.content;
 
     const { onFormChange: onChange } = props;
 
     return (
         <div className="coin-selection-container">
-            <h3 className="container-title">{content[type].module} Details</h3>
+            <h3 className="container-title">Index Details</h3>
             <Form className="Basket-form">
                 <Form.Group controlId="Basket-ticker-input">
                     <Form.Label>Ticker</Form.Label>

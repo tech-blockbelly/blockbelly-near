@@ -1,22 +1,19 @@
 .create-index-container {
     .header-row {
-        margin-bottom: 10px;
+        margin-bottom: 20px;
         margin-top: 10px;
-        .chain-selector-wrapper {
-            // display: flex;
-            align-items: center;
-            // border-radius: 20px;
-            // box-shadow: 0 20px 25px -15px $boxshadowgray;
-            // border: solid 1px $bordergrey;
-            // background-color: $bggrey;
-            .chain-selector .css-181klts-control {
-                box-shadow: 0 20px 25px -15px $boxshadowgray;
-                border: solid 0.5px $boxshadowgray;
-                width: 100%;
+        .header-col {
+            display: flex;
+            .coin-logo {
+                background-color: $white;
+                margin-left: 30px;
+                width: 64px;
+                height: 64px;
+                border-radius: 50px;
+                box-shadow:
+                    0 0 15px $lightpink,
+                    0 0 15px $darkpuple;
             }
-        }
-        .chain-selector .css-181klts-control {
-            box-shadow: 0 20px 25px -15px $boxshadowgray;
         }
     }
     .basket-create-container {

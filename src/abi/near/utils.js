@@ -127,22 +127,27 @@ export async function initRefContract() {
     "ref.fakes.testnet", // contract's account
     {
       viewMethods: ['ft_metadata'],
-      changeMethods: ["ft_transfer"],
+      changeMethods: ['ft_transfer', 'ft_transfer_call'],
     }
   )
 }
 
 export async function callftTransfer() {
   console.log('Calling ft_transfer');
-  let info = {
-    "receiver_id": window.contract.contractId,
-    "amount":"999999999999940000",
-  };
-  let amt = 1;
   let gas = 300000000000000;
 
-  let response = await window.refcontract.ft_transfer(info, amt, gas);
+  let info = {
+    "receiver_id": window.contract.contractId,
+    "amount":"10000000",
+  };
+  let amt = 1;
+  let argsObj = {
+    "args": info, 
+    "amount": amt, 
+    "gas": gas
+  };
 
+  let response = await window.refcontract.ft_transfer(argsObj);
   return response;
 }
 
@@ -151,16 +156,21 @@ export async function fetchRefConMetadata() {
   return response;
 }
 
-/* export async function callftTransfer() {
-  console.log('Calling ft_transfer');
+export async function callftTransferCall() {
+  console.log('Calling ft_transfer_call');
   let info = {
     "receiver_id": window.contract.contractId,
-    "amount":"999999999999940000",
-    "msg":"Ft transfer function called from BB frontend" 
+    "amount":"10000000",
+    "msg":""
   };
   let amt = 1;
-  let gas = 300000000000000000;
+  let gas = 300000000000000;
+  let argsObj = {
+    "args": info,
+    "amount": amt,
+    "gas": gas
+  };
 
-  let response = await window.refcontract.ft_transfer_call(info, amt, gas);
+  let response = await window.refcontract.ft_transfer_call(argsObj);
   return response;
-} */
+}
