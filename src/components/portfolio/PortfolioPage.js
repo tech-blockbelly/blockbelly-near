@@ -224,7 +224,7 @@ const {
 //             );
 
 //             setBBContract(
-//                 new Contract(wallet.account(), 'dev-1661065232448-46728115400748', {
+//                 new Contract(wallet.account(), 'neco-token.atultest.testnet', {
 //                     viewMethods: [
 //                         'ft_metadata',
 //                         'ft_total_supply',
@@ -325,7 +325,7 @@ const {
 //             'get_deposits',
 //             ],
 //         });
-//         wallet.requestSignIn('dev-1661065232448-46728115400748');
+//         wallet.requestSignIn('neco-token.atultest.testnet');
 //     };
 
 //     useEffect(() => {
@@ -625,7 +625,7 @@ const PortfolioPage = (props) => {
 
   // Initialize the contract object when the wallet is available
   useEffect(() => {
-    if (wallet) {
+    if (wallet && indexDetails) {
       setContract(
         new Contract(wallet.account(), "ref-finance-101.testnet", {
           viewMethods: ["get_pools", "get_pool_total_shares", "get_deposits"],
@@ -634,7 +634,7 @@ const PortfolioPage = (props) => {
       );
 
       setBBContract(
-        new Contract(wallet.account(), "dev-1661065232448-46728115400748", {
+        new Contract(wallet.account(), indexDetails.contractId, {
           viewMethods: [
             "ft_metadata",
             "ft_total_supply",
@@ -662,7 +662,7 @@ const PortfolioPage = (props) => {
         .getAccountBalance()
         .then(({ available }) => setBalance(available));
     }
-  }, [wallet]);
+  }, [wallet, indexDetails]);
 
   const isSignedIn = Boolean(wallet && wallet.isSignedIn() && contract);
 
@@ -708,7 +708,6 @@ const PortfolioPage = (props) => {
             outWithOneIn) *
             10 ** indexDetails.iTin.dcm
         );
-        console.log(inForMinOut, tokenOut);
         const poolFee = token.total_fee / 1000;
         tokenDistLocal.push({
           tokenIn,
@@ -737,7 +736,9 @@ const PortfolioPage = (props) => {
       const actualIn = 1 - platformFee - distributorFee;
       const split = [];
       for (const dist of tokenDist) {
-        const amtInDist = (dist.inForMinOut * actualIn) / minIn;
+        const amtInDist = Math.floor(
+          (dist.inForMinOut * actualIn * 10 ** indexDetails.iTin.dcm) / minIn
+        );
         const poolFee = dist.poolFee * amtInDist;
         swapFee += poolFee;
         const minOut = dist.outWithOneIn * (amtInDist - poolFee);
@@ -749,13 +750,6 @@ const PortfolioPage = (props) => {
           amtInDist,
         });
       }
-      console.log({
-        amountIn,
-        distributorFee,
-        platformFee,
-        swapFee,
-        split,
-      });
       setDistibution({
         amountIn,
         distributorFee,
@@ -772,7 +766,7 @@ const PortfolioPage = (props) => {
       contractId: "ref-finance-101.testnet",
       methodNames: ["get_pools", "get_pool_total_shares", "get_deposits"],
     });
-    wallet.requestSignIn("dev-1661065232448-46728115400748");
+    wallet.requestSignIn(indexDetails.contractId);
   };
 
   const showAccountBalance = () => {
@@ -792,7 +786,6 @@ const PortfolioPage = (props) => {
 
   const processTransaction = () => {
     setAppState({ ...appState, loading: true });
-
     buyToken(distribution, bbContract)
       .then((resp) => {
         setAppState({ ...appState, loading: false });
@@ -865,7 +858,11 @@ const PortfolioPage = (props) => {
             </Row>
             <Row className="information-row">
               <h4 className="title">Allocations</h4>
-              <DistributionTable {...props} tokens={appState.fund["iCmp"]} />
+              <DistributionTable
+                {...props}
+                tokens={appState.fund["iCmp"]}
+                tokenDist={tokenDist}
+              />
             </Row>
             <Row className="information-row">
               <h4 className="title">Overview</h4>
