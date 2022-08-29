@@ -39,7 +39,7 @@ const DistributionTable = (props) => {
                                 </td> */}
                                 <td>
                                     <p className="token-allocation">
-                                        {token.wt}%
+                                        {(token.wt * 10 ** (-1*token.dcm)).toFixed(token.dcm)} {token.cName}
                                     </p>
                                 </td>
                                 {/* <td>

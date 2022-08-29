@@ -33,6 +33,14 @@ export function login() {
   // Works by creating a new access key for the user's account
   // and storing the private key in localStorage.
   window.walletConnection.requestSignIn(nearConfig.contractName)
+  window.walletConnection.requestSignIn({
+    contractId: 'ref-finance-101.testnet',
+    methodNames: [
+    'get_pools',
+    'get_pool_total_shares',
+    'get_deposits',
+    ],
+  });
 }
 
 
@@ -68,27 +76,15 @@ export async function updateBaseprice() {
 }
 
 // export async function buyToken(amount, tokenList, tokenDeposit) {
-export async function buyToken() {
-  console.log('Calling buy_token');
+export async function buyToken(distribution, bbContract) {
   let tokenInfo = {
-    "amount":"500000000000000000",
-    "token_list":[
-      "hapi.fakes.testnet",
-      "wrap.testnet",
-      "usdc.fakes.testnet",
-      "usdt.fakes.testnet",
-      "paras.fakes.testnet"
-    ],
-    "token_deposits":[
-      "100000000000000000",
-      "100000000000000000",
-      "100000000000000000",
-      "100000000000000000",
-      "100000000000000000"
-    ]
+    "amount":distribution.amountIn.toString(),
+    "token_list":distribution.split.map(token => token.tokenOut),
+    "token_deposits":distribution.split.map(token => token.amtInDist.toString()),
   }
   let gas = 300000000000000;
-  let response = await window.contract.buy_token(tokenInfo, gas);
+  console.log('Calling buy_token', tokenInfo);
+  let response = await bbContract.buy_token(tokenInfo, gas);
 
   return response;
 }
