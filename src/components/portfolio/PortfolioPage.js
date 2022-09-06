@@ -728,17 +728,10 @@ const PortfolioPage = (props) => {
 
   useMemo(() => {
     if (tokenDist && indexDetails) {
-      const tkInDCM = indexDetails.iTin.dcm;
-      const amountIn = 1 * 10 ** tkInDCM;
-      const platformFee = (0.2 / 100) * 1;
-      const distributorFee = (0.2 / 100) * 1;
       let swapFee = 0;
-      const actualIn = 1 - platformFee - distributorFee;
       const split = [];
       for (const dist of tokenDist) {
-        const amtInDist = Math.floor(
-          (dist.inForMinOut * actualIn * 10 ** indexDetails.iTin.dcm) / minIn
-        );
+        const amtInDist = Math.floor(dist.inForMinOut);
         const poolFee = dist.poolFee * amtInDist;
         swapFee += poolFee;
         const minOut = dist.outWithOneIn * (amtInDist - poolFee);
@@ -750,10 +743,9 @@ const PortfolioPage = (props) => {
           amtInDist,
         });
       }
+      const amountIn = (minIn + swapFee) / 0.94;
       setDistibution({
         amountIn,
-        distributorFee,
-        platformFee,
         swapFee,
         split,
       });
