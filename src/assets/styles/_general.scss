@@ -210,13 +210,14 @@ select:focus {
 
 .status-modal {
     .modal-body {
-        background-color: $boxshadowgray;
+        background-color: $black;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
+        box-shadow: 0 0 10px #B779FD, 0 0 10px #511397;
     }
     .modal-footer {
         justify-content: center !important;
-        background-color: $boxshadowgray;
+        background-color: $black;
 
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
@@ -229,8 +230,8 @@ select:focus {
                 opacity: 0.9;
             }
         }
+        box-shadow: 0 0 10px #B779FD, 0 0 10px #511397;
     }
-    
 }
 
 @media #{$mobile} {

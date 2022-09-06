@@ -17,9 +17,16 @@ const HeroBanner = () => {
                     />
                 </Col>
                 <Col lg={7} sm={1} className='content-col'>
-                    <h1 className='tagline'>
-                        Begin your DeFi journey with Invex
-                    </h1>
+                    {/* <div className='tagline-wrapper'> */}
+                        <Image
+                            src={InvexLogo}
+                            className='app-logo-desktop'
+                        />
+                        <h1 className='tagline'>
+                            Begin your DeFi journey with INVEX
+                        </h1>
+                    {/* </div> */}
+                    
                     <div className='button-wrapper'>
                         <Link to={`defi/baskets`} className="link-btn">
                             Investor
