@@ -153,4 +153,32 @@
 			}
 		}
 	}
+    // new landing page blocks
+    .how-to-use-container {
+        .how-to-use-header {
+            padding: 50px;
+        }
+    }
+    .landing-footer-container {
+        margin: 10px auto;
+        text-align: center;
+        .connect-header, .connect-link {
+            font-family: 'Prompt Regular';
+            font-size: 40px;
+            line-height: 60px;
+            margin-bottom: 40px;
+        }
+        .connect-wrapper {
+            display: flex;
+            justify-content: space-between;
+            .connect-link {
+                color: #014FFF;
+                margin: 0 30px;
+            }
+            .twitter-icon {
+                fill: #1DA1F2;
+                stroke: #1DA1F2;
+            }
+        }
+    }
 }

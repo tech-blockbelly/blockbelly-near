@@ -8,14 +8,14 @@ const Footer = () => {
                 <p className="footer-text">Invex All rights reserved.</p>
             </div>
 
-            <div className="footer-links footer-right">
+            {/* <div className="footer-links footer-right">
                 <a href="/" className="footer-text privacy-link">
                     Privacy Notice
                 </a>
                 <a href="/" className="footer-text status-link">
                     Status
                 </a>
-            </div>
+            </div> */}
         </footer>
     );
 };
