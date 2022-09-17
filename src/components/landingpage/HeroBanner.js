@@ -1,5 +1,9 @@
 import React from 'react';
-import { Row, Col, Image,  Button } from 'react-bootstrap';
+import {
+    Row,
+    Col,
+    Image
+} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import astronaut from '../../assets/images/Astronaut1.png';
@@ -12,10 +16,10 @@ const HeroBanner = () => {
                     <h1 className='content-header'>Simplified Onchain <span className='gradient-text'>Indexes</span></h1>
                     <p className='content-description'>Invex is an infrastructure platform for aggregating, transacting, creating and managing on chain Indexes on Near</p>
                     <div className='button-wrapper'>
-                        <Link to={``} className='gradient-btn btn'>
+                        <Link to={`/waitlist`} className='gradient-btn btn'>
                             Join the Waitlist
                         </Link>
-                        <Link to={``} className='gradient-btn btn'>
+                        <Link to={`/betaaccess`} className='gradient-btn btn'>
                             I have Beta Access
                         </Link>
                     </div>

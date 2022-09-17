@@ -1,0 +1,38 @@
+.beta-access-page {
+    padding: 50px 0;
+    .beta-access-wrapper {
+        .content-col {
+            .content-header {
+                font-size: 70px;
+                line-height: 106px;
+            }
+            .beta-access-form {
+                margin: 70px 0;
+                width: 360px;
+                .form-group {
+                    margin-bottom: 50px;
+                    .login-input {
+                        margin: 0;
+                        font-size: 24px;
+                        line-height: 36px;
+                        text-transform: capitalize;
+                        font-family: 'Prompt';
+                        padding: 10px 30px;
+                        background-color: #C4BFBF;
+                        color: #837F7F;
+                    }
+                    &:focus-within .login-inputbel {
+                        color: red !important;
+                    }
+                }
+                .button-wrapper {
+                    margin-top: 100px;
+                    .login-btn {
+                        width: 360px;
+                        font-weight: 700;
+                    }
+                }
+            }
+        }
+    }
+}

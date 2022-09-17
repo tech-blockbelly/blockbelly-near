@@ -21,6 +21,8 @@ import InvesmentPage from './components/portfolio/InvestmentPage';
 import CreatePage from './components/createportfolio/CreatePage';
 // import DeFiExchangePage from './components/connectexchange/DeFiExchangePage';
 import LandingPage from './components/common/LandingPage';
+import WaitListPage from './components/landingpage/WaitListPage';
+import BetaAccessPage from './components/landingpage/BetaAccessPage';
 
 // import Layout from './hocs/Layout';
 import { ToastContainer } from 'react-toastify';
@@ -44,6 +46,14 @@ function App() {
                             <Route exact path="/">
                                 {/* <Redirect to="/baskets" /> */}
                                 <LandingPage />
+                            </Route>
+                            <Route exact path="/waitlist">
+                                {/* <Redirect to="/baskets" /> */}
+                                <WaitListPage />
+                            </Route>
+                            <Route exact path="/betaaccess">
+                                {/* <Redirect to="/baskets" /> */}
+                                <BetaAccessPage />
                             </Route>
                             <Route exact path="/:type/baskets">
                                 {/* <DeFiExchangeContainer /> */}
