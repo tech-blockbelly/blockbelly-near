@@ -64,6 +64,7 @@
         "@testing-library/user-event": "^12.1.10",
         "@uniswap/v3-periphery": "^1.4.0",
         "@usedapp/core": "^0.5.2",
+        "aws-sdk": "^2.1218.0",
         "axios": "^0.21.1",
         "bootstrap": "4.6.0",
         "buffer": "^6.0.3",

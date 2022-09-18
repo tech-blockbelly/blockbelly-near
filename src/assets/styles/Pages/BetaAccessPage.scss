@@ -15,14 +15,16 @@
                         margin: 0;
                         font-size: 24px;
                         line-height: 36px;
-                        text-transform: capitalize;
                         font-family: 'Prompt';
                         padding: 10px 30px;
                         background-color: #C4BFBF;
                         color: #837F7F;
                     }
-                    &:focus-within .login-inputbel {
-                        color: red !important;
+                    .invalid-feedback {
+                        padding: 0 10px;
+                        font-family: DMSans;
+                        font-size: 15px;
+                        color: #fe3921;
                     }
                 }
                 .button-wrapper {
@@ -31,6 +33,14 @@
                         width: 360px;
                         font-weight: 700;
                     }
+                }
+            }
+            .error-wrapper {
+                margin-top: 40px;
+                .error-message {
+                    font-family: 'DMSANS';
+                    font-size: 30px;
+                    margin-bottom: 40px;
                 }
             }
         }
