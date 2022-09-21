@@ -4,6 +4,19 @@
             .hero-image-desktop {
                 width: 100%;
             }
+            .hero-image-text {
+                font-size: 40px;
+                line-height: 52px;
+                text-transform: capitalize;
+                font-family: DMSans;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                margin-top: 20px;
+                .near-logo {
+                    max-height: 55px;
+                }
+            }
         }
         .content-col {
             display: flex;

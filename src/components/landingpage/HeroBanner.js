@@ -7,6 +7,7 @@ import {
 import { Link } from 'react-router-dom';
 
 import astronaut from '../../assets/images/Astronaut1.png';
+import logo from '../../assets/images/NEAR.png';
 
 const HeroBanner = () => {
     return (
@@ -20,13 +21,14 @@ const HeroBanner = () => {
                             Join the Waitlist
                         </Link>
                         <Link to={`/betaaccess`} className='gradient-btn btn'>
-                            I have Beta Access
+                            I have Beta Access?
                         </Link>
                     </div>
                     
                 </Col>
                 <Col lg={5} sm={1} className='image-col'>
                     <Image className='hero-image-desktop' src={astronaut} />
+                    <p className='hero-image-text'>Build on <Image className='near-logo' src={logo}/></p>
                 </Col>
            </Row>
         </div>
