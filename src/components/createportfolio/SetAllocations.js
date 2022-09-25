@@ -58,6 +58,26 @@ const SetAllocations = ({
     const coinSymbols = Object.keys(selectedCoins);
     const coinsList = coins.filter((coin) => coinSymbols.includes(coin.value));
 
+    const selectStyles = {
+        control: (styles) => ({
+            ...styles,
+            border: 'none',
+            borderRadius: '30px',
+            padding: '15px',
+            width: '100%',
+            '&:active, &:focus, &:hover': {
+                border: 'none',
+            }
+        }),
+        option: (styles, { isFocused }) => {
+            return {
+              ...styles,
+              backgroundColor: isFocused ? "#000" : null,
+              color: isFocused ? "#ffffff" : "#000000"
+            };
+        }
+    }
+
     return (
         <div className={`coin-allocation-container ${className}`}>
             {/* <SelectCoins coins={appState.coins} onCoinSelect={onCoinSelect} /> */}
@@ -70,22 +90,7 @@ const SetAllocations = ({
                 // isClearable
                 // isSearchable
                 value={defaultValue}
-                styles={{
-                    control: (styles) => ({
-                        ...styles,
-                        border: 'none',
-                        borderRadius: '30px',
-                        padding: '15px',
-                        width: '100%',
-                        '&:active, &:focus, &:hover': {
-                            border: 'none',
-                        },
-                    }),
-                    options: (styles) => ({
-                        ...styles,
-                        fontSize: '16px',
-                    }),
-                }}
+                styles={selectStyles}
             />
             {coinsList.length ? (
                 coinsList.map((coin, index) => (
