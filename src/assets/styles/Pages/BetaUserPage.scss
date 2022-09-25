@@ -1,56 +1,55 @@
-.hero-banner-container {
-    .hero-banner {
+.beta-container {
+    .beta {
         .image-col {
-            .hero-image-desktop {
+            padding: 50px 0;
+            .image-desktop {
                 width: 100%;
             }
-            .hero-image-text {
-                font-size: 40px;
-                line-height: 52px;
-                text-transform: capitalize;
-                font-family: DMSans;
-                display: flex;
-                align-items: center;
-                justify-content: flex-end;
-                margin-top: 20px;
-                .near-logo {
-                    max-height: 55px;
-                }
+            .image-mobile {
+                display: none;
             }
         }
         .content-col {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
             padding: 50px;
-            .content-header {
-                margin-bottom: 40px;
-                font-weight: 700;
-                font-size: 60px;
-                line-height: 91px;
-            }
-            .content-description {
-                font-weight: 400;
-                font-size: 40px;
-                line-height: 52px;
+            .app-logo-desktop {
+                display: block;
+                max-width: 130px;
+                border-radius: 100px;
                 margin-bottom: 30px;
+                border-radius: 50%;
+                box-shadow:
+                    0 0 15px $lightpink,
+                    0 0 15px $darkpuple;
+            }
+            .tagline {
+                text-align: center;
             }
             .button-wrapper {
                 display: flex;
                 justify-content: space-between;
                 flex-direction: column;
-                .gradient-btn {
+                .link-btn {
                     align-items: center;
+                    width: 350px;
+                    margin: 20px;
+                    text-align: center;
+                    text-decoration: none;
+                    &:hover {
+                        opacity: 0.9;
+                    }
                 }
             }
         }
         @media #{$mobile} {
             .image-col {
-                .hero-image-desktop {
+                .image-desktop {
                     display: none;
                 }
-                .hero-image-mobile {
+                .image-mobile {
                     display: block;
                     margin: 0 auto;
                     max-width: 130px;

@@ -25,34 +25,29 @@ const content = {
 
 const chainCoins = [
     {
-        value: 'WETH',
-        label: 'Ethereum (WETH)',
-        icon: 'https://s2.coinmarketcap.com/static/img/coins/64x64/2396.png'
+        value: 'NEAR',
+        label: 'NEAR Protocol',
+        icon: 'https://s2.coinmarketcap.com/static/img/coins/64x64/6535.png',
     },
     {
-        value: 'REF',
-        label: 'Ref Finance',
-        icon: 'https://s2.coinmarketcap.com/static/img/coins/64x64/11809.png',
+        value: 'PARAS',
+        label: 'Paras',
+        icon: 'https://s2.coinmarketcap.com/static/img/coins/64x64/13018.png',
+    },
+    {
+        value: 'HAPI',
+        label: 'HAPI Protocol',
+        icon: 'https://s2.coinmarketcap.com/static/img/coins/64x64/8567.png',
     },
     {
         value: 'SKYWARD',
         label: 'Skyward Finance',
-        icon: 'https://s2.coinmarketcap.com/static/img/coins/64x64/11798.png',
+        icon: 'https://s2.coinmarketcap.com/static/img/coins/64x64/11798.png'
     },
     {
         value: 'AURORA',
         label: 'Aurora',
         icon: 'https://s2.coinmarketcap.com/static/img/coins/64x64/14803.png',
-    },
-    {
-        value: 'CELO',
-        label: 'Celo',
-        icon: 'https://s2.coinmarketcap.com/static/img/coins/64x64/5567.png',
-    },
-    {
-        value: 'Octopus',
-        label: 'Octopus Protocol',
-        icon: 'https://s2.coinmarketcap.com/static/img/coins/64x64/10494.png',
     },
 ]
 

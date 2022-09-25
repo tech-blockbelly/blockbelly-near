@@ -1,0 +1,15 @@
+.image-module-container {
+    margin: 50px;
+    .header {
+        font-family: 'DMSans';
+        font-size: 40px;
+        line-height: 52px;
+    }
+    .image {
+        margin: 92px 60px;
+        max-width: 85vw;
+    }
+    @media #{$mobile} {
+        
+    }
+}

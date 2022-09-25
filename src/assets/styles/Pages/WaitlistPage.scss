@@ -1,0 +1,48 @@
+.waitlist-page {
+    padding: 50px 0;
+    .waitlist-wrapper {
+        .content-col {
+            .content-header {
+                font-size: 70px;
+                line-height: 106px;
+            }
+            .waitlist-form {
+                margin: 70px 0;
+                width: 360px;
+                .form-group {
+                    margin-bottom: 50px;
+                    .waitlist-input {
+                        margin: 0;
+                        font-size: 24px;
+                        line-height: 36px;
+                        font-family: 'Prompt';
+                        padding: 10px 30px;
+                        background-color: #C4BFBF;
+                        color: #837F7F;
+                    }
+                    .invalid-feedback {
+                        padding: 0 10px;
+                        font-family: DMSans;
+                        font-size: 15px;
+                        color: #fe3921;
+                    }
+                }
+                .button-wrapper {
+                    margin-top: 100px;
+                    .join-btn {
+                        width: 360px;
+                        font-weight: 700;
+                    }
+                }
+            }
+            .message-wrapper {
+                margin-top: 40px;
+                .message {
+                    font-family: 'DMSANS';
+                    font-size: 30px;
+                    margin-bottom: 40px;
+                }
+            }
+        }
+    }
+}

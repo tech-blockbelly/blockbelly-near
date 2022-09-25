@@ -101,7 +101,7 @@ const BasketForm = (props) => {
                         required>
                         <option>Select fee currency</option>
                         <option>USDC</option>
-                        <option>ETH</option>
+                        <option>NECO</option>
                         {/* {coins.map((coin, index) => (
                             <option value={coin.value}>{coin.label}</option>
                         ))} */}
