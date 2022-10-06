@@ -5,17 +5,17 @@ const Footer = () => {
         <footer className="footer-container">
             <div className="footer-left">
                 <p className="footer-text">Copyright © 2021</p>
-                <p className="footer-text">Blockbelly All rights reserved.</p>
+                <p className="footer-text">Invex All rights reserved.</p>
             </div>
 
-            <div className="footer-links footer-right">
+            {/* <div className="footer-links footer-right">
                 <a href="/" className="footer-text privacy-link">
                     Privacy Notice
                 </a>
                 <a href="/" className="footer-text status-link">
                     Status
                 </a>
-            </div>
+            </div> */}
         </footer>
     );
 };

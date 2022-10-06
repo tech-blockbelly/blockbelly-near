@@ -1,27 +1,14 @@
 @font-face {
-    font-family: 'Sofia Pro';
-    src: url('../fonts/SofiaProRegular.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
+    font-family: 'Prompt';
+    src: url('../fonts/Prompt-Bold.ttf');
 }
 
 @font-face {
-    font-family: 'Pathway Gothic One';
-    src: url('../fonts/PathwayGothicOne-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+    font-family: 'Prompt Regular';
+    src: url('../fonts/Prompt-Regular.ttf');
 }
 
 @font-face {
-    font-family: 'Galano Grotesque';
-    src: url('../fonts/GalanoGrotesqueBold.otf') format('opentype');
-    font-weight: bold;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Sofia Pro Bold';
-    src: url('../fonts/SofiaProBold.otf') format('opentype');
-    font-weight: bold;
-    font-style: normal;
+    font-family: 'DMSans';
+    src: url('../fonts/DMSans-Regular.ttf');
 }

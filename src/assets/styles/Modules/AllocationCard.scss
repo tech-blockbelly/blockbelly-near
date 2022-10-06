@@ -17,6 +17,7 @@
 			display: flex;
 			align-items: center;
 			font-size: 14px;
+			color: $black;
 			.coin-logo {
 				width: 31px;
 				margin-right: 15px;
@@ -29,6 +30,7 @@
 			display: flex;
 			justify-content: flex-end;
 			align-items: baseline;
+			color: $black;
 			.allocation-range-input {
 				font-size: 20px;
 				margin: 0 10px 5px;

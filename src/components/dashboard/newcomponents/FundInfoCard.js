@@ -51,7 +51,7 @@ const FundInfoCard = (props) => {
             </Card.Body>
             <Card.Footer>
                 <Card.Img className="creator-icon" src={fund.creatorIcon} />
-                <p className="creator-name text-muted">By {fund.creator}</p>
+                <p className="creator-name">By {fund.creator}</p>
             </Card.Footer>
         </Card>
     );

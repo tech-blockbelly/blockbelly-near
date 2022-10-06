@@ -10,13 +10,11 @@ const SuccessModal = (props) => {
             aria-labelledby="contained-modal-title-vcenter"
             backdrop="static"
             keyboard={false}
+            className="status-modal"
             centered>
             <Modal.Body className="text-center">
                 <div className="no-selection">
-                    <h1 className="text-success">
-                        <BiBadgeCheck size={70} />
-                    </h1>
-                    <p>{props.msg}</p>
+                    <BiBadgeCheck size={50} className="text-success" /> <span>{props.msg}</span>
                 </div>
             </Modal.Body>
             <Modal.Footer className="button-wrapper">

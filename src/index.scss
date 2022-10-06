@@ -40,12 +40,15 @@
 @import './assets/styles/Modules/AllocationCard';
 @import './assets/styles/Modules/SipModule';
 @import './assets/styles/Modules/DistributionTable';
-
-// New css files. Remove corresponding old files during cleanup
-@import './assets/styles/Modules/FundInfoCard_new.scss';
+@import './assets/styles/Modules/HeroBanner.scss';
+@import './assets/styles/Modules/Features.scss';
+@import './assets/styles/Modules/ImageModule.scss';
 
 @import './assets/styles/Pages/PortfolioPage';
 @import './assets/styles/Pages/DashboardPage';
 @import './assets/styles/Pages/Pages';
 @import './assets/styles/Pages/TransactionPage';
 @import './assets/styles/Pages/CreatePage.scss';
+@import './assets/styles/Pages/BetaAccessPage.scss';
+@import './assets/styles/Pages/WaitlistPage.scss';
+@import './assets/styles/Pages/BetaUserPage.scss';

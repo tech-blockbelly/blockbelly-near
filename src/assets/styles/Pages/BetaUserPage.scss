@@ -1,0 +1,80 @@
+.beta-container {
+    .beta {
+        .image-col {
+            padding: 50px 0;
+            .image-desktop {
+                width: 100%;
+            }
+            .image-mobile {
+                display: none;
+            }
+        }
+        .content-col {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 50px;
+            .app-logo-desktop {
+                display: block;
+                max-width: 130px;
+                border-radius: 100px;
+                margin-bottom: 30px;
+                border-radius: 50%;
+                box-shadow:
+                    0 0 15px $lightpink,
+                    0 0 15px $darkpuple;
+            }
+            .tagline {
+                text-align: center;
+            }
+            .button-wrapper {
+                display: flex;
+                justify-content: space-between;
+                flex-direction: column;
+                .link-btn {
+                    align-items: center;
+                    width: 350px;
+                    margin: 20px;
+                    text-align: center;
+                    text-decoration: none;
+                    &:hover {
+                        opacity: 0.9;
+                    }
+                }
+            }
+        }
+        @media #{$mobile} {
+            .image-col {
+                .image-desktop {
+                    display: none;
+                }
+                .image-mobile {
+                    display: block;
+                    margin: 0 auto;
+                    max-width: 130px;
+                    border-radius: 100px;
+                    margin-bottom: 15px;
+                    border-radius: 50%;
+                    box-shadow:
+                        0 0 15px $lightpink,
+                        0 0 15px $darkpuple;
+                }
+            }
+            .content-col {
+                align-items: center;
+                padding: 50px;
+                .app-logo-desktop {
+                    display: none;
+                }
+                .button-wrapper {
+                    margin-top: 30px;
+                    .link-btn {
+                        font-size: 18px;
+                        width: 250px;
+                    }
+                }
+            }
+        }
+    }
+}
